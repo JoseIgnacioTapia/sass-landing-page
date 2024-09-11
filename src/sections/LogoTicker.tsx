@@ -17,7 +17,7 @@ export const LogoTicker = () => {
           <motion.div
             className='flex gap-14 flex-none pr-14'
             animate={{
-              translateX: '-50%',
+              translateX: '-100%',
             }}
             transition={{
               duration: 20,
