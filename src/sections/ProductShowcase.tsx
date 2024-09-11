@@ -1,9 +1,22 @@
+'use client';
 import Image from 'next/image';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+
 import productImage from '@/assets/product-image.png';
 import pyramindImage from '@/assets/pyramid.png';
 import tubeImage from '@/assets/tube.png';
 
 export const ProductShowcase = () => {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
+
   return (
     <section className='bg-gradient-to-b from-[#ffffff] to-[#D2DCFF] py-24 overflow-x-clip'>
       <div className='container'>
@@ -21,18 +34,25 @@ export const ProductShowcase = () => {
         </div>
         <div className='relative'>
           <Image src={productImage} alt='Product Image' className='mt-10' />
-          <Image
-            src={pyramindImage}
+          <motion.img
+            src={pyramindImage.src}
             alt='Pyramid Image'
             height={262}
             width={262}
             className='hidden md:block absolute -right-36 -top-32'
+            style={{
+              translateY,
+            }}
           />
-          <Image
-            src={tubeImage}
+          <motion.img
+            src={tubeImage.src}
             alt='Tube image'
             height={248}
+            width={248}
             className='hidden md:block absolute bottom-24 -left-36'
+            style={{
+              translateY,
+            }}
           />
         </div>
       </div>
